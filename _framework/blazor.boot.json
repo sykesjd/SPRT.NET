@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "SPRT.NET",
   "resources": {
-    "hash": "sha256-VDXNp6Zri4g7DLLiWmpErBLj+/4o0zkJSpjkOSUQS4s=",
+    "hash": "sha256-FnhTcuM/m2pFeX7Ta2dKz7LrUzIeYrw+x8T9e3Xkj3E=",
     "jsModuleNative": {
       "dotnet.native.8.0.2.jgt5nhn140.js": "sha256-gPMK16QWoJSTxorlZJqcVtbBRTniIQWlLsJN2O4cJHg="
     },
@@ -32,7 +32,7 @@
       "Microsoft.Extensions.Primitives.wasm": "sha256-6187ynEahDlSLMBvD4vAmiLpZ3clRb5xu6rM7O8AxNo=",
       "Microsoft.JSInterop.wasm": "sha256-y9e5FjTO/gq0d6pvl/cYf7uT232Y/Dw7ZS0YNZGBv/M=",
       "Microsoft.JSInterop.WebAssembly.wasm": "sha256-aCgxiIU+arbpOkgLngl1hBQLocrFL2/t1zUJV8HXOzI=",
-      "SPRT.NET.wasm": "sha256-7iW8ZVeZBZBxDOTlRC4zRlizvjU2sv/HMsdIcjELAZg=",
+      "SPRT.NET.wasm": "sha256-TQkDmbCxNj3qX8H+SJIVrl+HYJBHtjsUHrnR2cuwHj0=",
       "System.Collections.Concurrent.wasm": "sha256-DEZ59fGbj2NqpZbDf9KV0hzXZkN0+vJaLNPPONQTjLo=",
       "System.Collections.wasm": "sha256-le3Hos20YHqMbju0NlRous5zMDdzqVrcRrbQ1gFpssU=",
       "System.ComponentModel.wasm": "sha256-qwurUoDSjnjNxAivtUxZqGvkOgARzX9ETuhBPrMx5Xo=",

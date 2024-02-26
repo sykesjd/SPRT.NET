@@ -11,10 +11,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Setup .NET Core SDK
+    - name: Setup .NET SDK
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 8.0
+        dotnet-version: 8.0.*
 
     - name: Publish .NET Core Project
       run: dotnet publish SPRT.NET.csproj -c Release -o release --nologo

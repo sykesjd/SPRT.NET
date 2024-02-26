@@ -32,6 +32,6 @@ jobs:
       run: touch release/wwwroot/.nojekyll
       
     - name: Commit wwwroot to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@4.5.0
+      uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
         FOLDER: release/wwwroot

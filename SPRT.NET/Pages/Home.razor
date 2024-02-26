@@ -1,0 +1,171 @@
+﻿@page "/"
+@using ClipLazor.Components;
+@inject IClipLazor Clipboard
+
+<PageTitle>SPRT.NET</PageTitle>
+
+<h1>SPRT.NET</h1>
+
+<div class="row mb-3">
+    <div class="col-6">
+        <label for="Framerate">Step 1: Enter framerate of YouTube video</label>
+        <input type="number" class="form-control" @bind-value="Framerate" @bind-value:event="oninput" />
+    </div>
+    <div class="col-6">
+        <label for="Modifier">Step 2: Enter modifier for final time, if any</label>
+        <input type="number" class="form-control" @bind-value="Modifier" @bind-value:event="oninput" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <p>Step 3: Stop YouTube video on first frame of run to time.</p>
+        <p>Step 4: Right-click on the YouTube video and select "Copy debug info".</p>
+        <p>Step 5: Paste the result below.</p>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" type="button" @onclick="async () => PasteFromDiag()">Paste</button>
+            </div>
+            <input type="text" class="form-control" readonly @bind-value="FromDiag" @bind-value:event="oninput" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <p>Step 6: Stop YouTube video on first frame after end of run to time.</p>
+        <p>Step 7: Right-click on the YouTube video and select "Copy debug info".</p>
+        <p>Step 8: Paste the result below.</p>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" type="button" @onclick="async () => PasteToDiag()">Paste</button>
+            </div>
+            <input type="text" class="form-control" readonly @bind-value="ToDiag" @bind-value:event="oninput" />
+        </div>
+    </div>
+</div>
+
+@if (TotalTime.HasValue)
+{
+    <br/>
+    <h3>Final time: <strong>@FinalTimeDisplay</strong></h3>
+    <p>Step 9: Copy the mod note below for run submission.</p>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary" type="button" @onclick="async () => CopyModNote()">Copy</button>
+        </div>
+        <input type="textarea" class="form-control" readonly value="@ModNote" />
+    </div>
+}
+
+@code {
+    private int? Framerate { get; set; }
+    private decimal? Modifier { get; set; }
+    private string? FromDiag { get; set; }
+    private decimal? FromTime => GetTime(FromDiag);
+    private string? ToDiag { get; set; }
+    private decimal? ToTime => GetTime(ToDiag);
+    private decimal? TotalTime => GetTotalTime();
+    private string? FinalTimeDisplay => GetTimeDisplay(TotalTime);
+    private string? ModNote => GetModNote();
+
+    private bool TryGetFrametime(out decimal frametime)
+    {
+        frametime = 0;
+
+        if (!Framerate.HasValue)
+            return false;
+
+        if (Framerate.Value == 0)
+            return false;
+        
+        frametime = (decimal)1.0 / Framerate.Value;
+        return true;
+    }
+
+    private decimal? GetTime(string? diag)
+    {
+        if (string.IsNullOrEmpty(diag))
+            return null;
+        
+        if (!TryGetFrametime(out var frametime))
+            return null;
+
+        try
+        {
+            var diagObj = System.Text.Json.JsonSerializer.Deserialize<YTDiag>(diag)!;
+            if (!decimal.TryParse(diagObj.cmt, out var time))
+                return null;
+            
+            return time - (time % frametime);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private class YTDiag
+    {
+        public string? cmt { get; set; }
+    }
+
+    private decimal? GetTotalTime()
+    {
+        if (!FromTime.HasValue)
+            return null;
+        
+        if (!ToTime.HasValue)
+            return null;
+        
+        var totalTime = ToTime.Value - FromTime.Value;
+        if (Modifier.HasValue)
+            totalTime += Modifier.Value;
+
+        return totalTime;
+    }
+
+    private string? GetTimeDisplay(decimal? time)
+    {
+        if (!time.HasValue)
+            return null;
+        
+        var displayTime = Math.Round(time.Value, 3, MidpointRounding.AwayFromZero);
+        var ms = (int)((1000 * displayTime) % 1000);
+        var totalS = (int)(displayTime - displayTime % 1);
+        var s = totalS % 60;
+        var totalM = (totalS - s) / 60;
+        var m = totalM % 60;
+        var h = (totalM - m) / 60;
+
+        var displayStr = h != 0 ? $"{h}:{m:d2}:{s:d2}"
+            : m != 0 ? $"{m}:{s:d2}" : $"{s}";
+        if (ms != 0)
+            displayStr = $"{displayStr}.{ms:d3}";
+        
+        return displayStr;
+    }
+
+    private string? GetModNote()
+    {
+        if (!TotalTime.HasValue)
+            return null;
+        
+        return $"Mod note: Time starts at {GetTimeDisplay(FromTime)} and ends at {GetTimeDisplay(ToTime)}, at {Framerate!.Value} fps. {Environment.NewLine}Retimed using SPRT.NET";
+    }
+
+    async void PasteFromDiag()
+    {
+        FromDiag = await Clipboard.ReadTextAsync();
+        StateHasChanged();
+    }
+
+    async void PasteToDiag()
+    {
+        ToDiag = await Clipboard.ReadTextAsync();
+        StateHasChanged();
+    }
+
+    async void CopyModNote()
+    {
+        await Clipboard.WriteTextAsync(ModNote!.AsMemory());
+    }
+}

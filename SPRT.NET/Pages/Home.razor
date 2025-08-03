@@ -5,11 +5,11 @@
 <div class="row mb-3">
     <div class="col-6">
         <label for="Framerate">Step 1: Enter framerate of YouTube video</label>
-        <input type="number" class="form-control" @bind-value="Framerate" @bind-value:event="oninput" />
+        <input type="number" class="form-control" @bind-value="TimingData.Framerate" @bind-value:event="oninput" />
     </div>
     <div class="col-6">
         <label for="Modifier">Step 2: Enter modifier for final time, if any</label>
-        <input type="number" class="form-control" @bind-value="Modifier" @bind-value:event="oninput" />
+        <input type="number" class="form-control" @bind-value="TimingData.Modifier" @bind-value:event="oninput" />
     </div>
 </div>
 <div class="row">
@@ -21,7 +21,7 @@
             <div class="input-group-prepend">
                 <button class="btn btn-outline-secondary" type="button" @onclick="async () => PasteFromDiag()">Paste</button>
             </div>
-            <input type="text" class="form-control" readonly @bind-value="FromDiag" @bind-value:event="oninput" />
+            <input type="text" class="form-control" readonly @bind-value="TimingData.FromDiag" @bind-value:event="oninput" />
         </div>
     </div>
 </div>
@@ -34,20 +34,20 @@
             <div class="input-group-prepend">
                 <button class="btn btn-outline-secondary" type="button" @onclick="async () => PasteToDiag()">Paste</button>
             </div>
-            <input type="text" class="form-control" readonly @bind-value="ToDiag" @bind-value:event="oninput" />
+            <input type="text" class="form-control" readonly @bind-value="TimingData.ToDiag" @bind-value:event="oninput" />
         </div>
     </div>
 </div>
 
-@if (TotalTime.HasValue)
+@if (TimingData.TotalTime.HasValue)
 {
     <br/>
-    <h3>Final time: <strong>@FinalTimeDisplay</strong></h3>
+    <h3>Final time: <strong>@TimingData.FinalTimeDisplay</strong></h3>
     <p>Step 9: Copy the mod note below for run submission.</p>
     <div class="input-group">
         <div class="input-group-prepend">
             <button class="btn btn-outline-secondary" type="button" @onclick="async () => CopyModNote()">Copy</button>
         </div>
-        <input type="textarea" class="form-control" readonly value="@ModNote" />
+        <input type="textarea" class="form-control" readonly value="@TimingData.ModNote" />
     </div>
 }

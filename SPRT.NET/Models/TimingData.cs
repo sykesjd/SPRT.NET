@@ -4,12 +4,12 @@ namespace SPRT.NET.Models;
 
 public class TimingData
 {
-    public int? Framerate { get; set; }
+    public uint? Framerate { get; set; }
     public decimal? Modifier { get; set; }
     public string FromDiag { get; set; }
-    public decimal? FromTime => GetTime(FromDiag);
+    private decimal? FromTime => GetTime(FromDiag);
     public string ToDiag { get; set; }
-    public decimal? ToTime => GetTime(ToDiag);
+    private decimal? ToTime => GetTime(ToDiag);
     public decimal? TotalTime => GetTotalTime();
     public string FinalTimeDisplay => GetTimeDisplay(TotalTime);
     public string ModNote => GetModNote();
@@ -35,10 +35,10 @@ public class TimingData
 
     private decimal? GetTime(string diag)
     {
-        if (string.IsNullOrEmpty(diag))
+        if (!TryGetFrametime(out var frametime))
             return null;
 
-        if (!TryGetFrametime(out var frametime))
+        if (string.IsNullOrEmpty(diag))
             return null;
 
         try
@@ -81,7 +81,7 @@ public class TimingData
             return null;
 
         var displayTime = Math.Round(time.Value, 3, MidpointRounding.AwayFromZero);
-        var ms = (int)((1000 * displayTime) % 1000);
+        var ms = (int)(1000 * displayTime % 1000);
         var totalS = (int)(displayTime - displayTime % 1);
         var s = totalS % 60;
         var totalM = (totalS - s) / 60;

@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "SPRT.NET",
   "resources": {
-    "hash": "sha256-5tPiW6vAdYRkHV/dUBdqRFSXGfJQhFi9cqW5aaI7+oE=",
+    "hash": "sha256-IYrgwkwVXbWyEusWAy0EuUqH4ilnZ6NLRLLfk/VRwJs=",
     "fingerprinting": {
       "ClipLazor.w8x247cfas.wasm": "ClipLazor.wasm",
       "Microsoft.AspNetCore.Components.zv2p9acpgi.wasm": "Microsoft.AspNetCore.Components.wasm",
@@ -39,7 +39,7 @@
       "System.Text.RegularExpressions.uppli1il33.wasm": "System.Text.RegularExpressions.wasm",
       "System.wznexm8bk2.wasm": "System.wasm",
       "System.Private.CoreLib.ciotcstcx8.wasm": "System.Private.CoreLib.wasm",
-      "SPRT.NET.1b6ys7e3f6.wasm": "SPRT.NET.wasm",
+      "SPRT.NET.57hg3c113c.wasm": "SPRT.NET.wasm",
       "dotnet.js": "dotnet.js",
       "dotnet.native.st0ovrfdhi.js": "dotnet.native.js",
       "dotnet.native.67rumul467.wasm": "dotnet.native.wasm",
@@ -101,7 +101,7 @@
       "System.Text.Json.niaqal5gzn.wasm": "sha256-QTqf0zfq1MCCneCzHoRrYEKQh/eMhrNgkGDczfBv39U=",
       "System.Text.RegularExpressions.uppli1il33.wasm": "sha256-cssgrj2fLKJui+a09EbhoMvUEqUJHPWKR47Ri3l887A=",
       "System.wznexm8bk2.wasm": "sha256-/Imz/Enqa2AZc4T3k/CqtsM6674KRN9OUtvK4Nokhew=",
-      "SPRT.NET.1b6ys7e3f6.wasm": "sha256-bQzFyOXIVHgRBJFrBt/ZYrSllDdC0vIWZVRCo+9ZM6s="
+      "SPRT.NET.57hg3c113c.wasm": "sha256-EZ64rM9Wih1nu//3IFUkDc7p8ShL0KfgwJeq231A+SM="
     }
   },
   "cacheBootResources": true,

@@ -1,9 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using ClipLazor.Components;
 using Microsoft.AspNetCore.Components;
 using SPRT.NET.Models;
 
 namespace SPRT.NET.Pages;
 
+[ExcludeFromCodeCoverage]
 public partial class Home
 {
     [Inject]

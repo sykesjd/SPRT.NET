@@ -1,5 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-using ClipLazor.Extention;
+using ClipLazor.Extensions;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using SPRT.NET;
